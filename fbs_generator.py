@@ -2,7 +2,7 @@
 import xlrd
 import sys
 import os
-
+from common import utils, const
 
 
 __excel_extension = 'xlsx'
@@ -58,18 +58,6 @@ def __export_excel_to_fbs(excel_path):
         sheet = wb.sheet_by_index(x)
         __export_sheet_to_fbs(sheet)
 
-def __checkRowHeaderLength(sheet, headerLength=4):
-    """
-    检查表头的几列是否对应
-    :param sheet: 
-    :return: 
-    """
-    a = []
-    for i in range(headerLength):
-        a.append(len(sheet.row(i)))
-    b = list(set(a))
-    return True if len(b) == 1 else False
-
 def __export_sheet_to_fbs(sheet):
     """
     excel的sheet导出为fbs
@@ -78,7 +66,10 @@ def __export_sheet_to_fbs(sheet):
     """
     variable_dict = {}
     sheet_name = sheet.name
-    print("sheet_name", sheet_name)
+    print(sheet_name.find("|"))
+    if sheet_name.find("|") != -1:
+        print(sheet_name)
+        sheet_name = sheet_name.split("|")[1]
     row_table_name = sheet_name + 'RowData'
     group_table_name = sheet_name
     client_or_server = sheet.row(0)
@@ -86,13 +77,12 @@ def __export_sheet_to_fbs(sheet):
     field_name_list = sheet.row(2)
     field_des = sheet.row(3)
     # check if length of row equals
-    if not __checkRowHeaderLength(sheet, 4):
+    if not utils.__checkRowHeaderLength(sheet, const.header_length):
         print('表头长度各列不一致, 仔细检查')
         print('异常退出')
         sys.exit()
-    #print (data_type)
     for i in range(len(field_name_list)):
-        variable_name = field_name_list[i]
+        variable_name = field_name_list[i].value
         # 这里需要类型转换
         data_type = data_type_list[i].value
         if not data_type:
