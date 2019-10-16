@@ -1,0 +1,23 @@
+{
+  "_excel_extension": "excel文件的后缀",
+  "excel_extension": "xlsx",
+  "_excel_rootPath": "excel配置文件存放路径",
+  "excel_rootPath": "excel",
+  "_header_length": "excel文件头的长度",
+  "header_length": 4,
+  "_output_fbs_rootPath": "fbs文件输出路径",
+  "output_fbs_rootPath": "fbs",
+  "_output_bin_rootPath": "二进制文件输出路径",
+  "output_bin_rootPath": "bins",
+  "_flat_path":"flat工具路径",
+  "flat_path": "flatc/flatc",
+  "_support_datatypes": "excel配置支持的基本数据类型",
+  "support_datatypes":["string", "int", "float", "byte", "bool"],
+  "_replace_dict": "对应不标准数据类型写法的兼容配置映射",
+  "replace_dict":{"boolean": "bool",
+                  "String": "string",
+                  "int[]": "string"
+                  },
+  "_generate_lang_type":["go", "rust", "python", "csharp"],
+  "generate_lang_type":["go", "rust", "python", "csharp"]
+}

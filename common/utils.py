@@ -1,6 +1,6 @@
 # coding=utf-8
 
-def __checkRowHeaderLength(sheet, headerLength=4):
+def checkRowHeaderLength(sheet, headerLength=4):
     """
     检查表头的几列是否对应
     :param sheet: 
