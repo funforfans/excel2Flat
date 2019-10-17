@@ -8,7 +8,7 @@
   "_output_fbs_rootPath": "fbs文件输出路径",
   "output_fbs_rootPath": "generated_fbs",
   "_output_bin_rootPath": "二进制文件输出路径",
-  "output_bin_rootPath": "bins",
+  "output_bin_rootPath": "generated_bins",
   "_flat_path":"flat工具路径",
   "flat_path": "flatc/flatc",
   "_support_datatypes": "excel配置支持的基本数据类型",
@@ -19,5 +19,5 @@
                   "int[]": "string"
                   },
   "_generate_lang_type": "生成对应的语言",
-  "generate_lang_type":["fbs", "go", "rust", "python", "csharp"]
+  "generate_lang_type":["fbs", "go", "rust", "python", "csharp", "bins"]
 }

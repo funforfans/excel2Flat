@@ -137,6 +137,9 @@ table %s {
         # flatc所在目录
         work_root = os.getcwd()
         flatc_path = os.path.join(work_root, self.get_config().get("flat_path"))
+        if language_sign == "bins" or language_sign == "fbs":
+            return
+        print('生成 {} 代码'.format(language_sign))
         command = '{} --{} -o {} {} --gen-onefile'.format(flatc_path, language_sign, target_path, fbs_file)
         print(command)
         os.system(command)
@@ -148,7 +151,6 @@ table %s {
         :param language_sign: 
         :return: 
         """
-        print('生成 {} 代码'.format(language_sign))
         fbs_path_list = self.get_all_fbs_file(self.get_config().get("output_fbs_rootPath"))
         for file_path in fbs_path_list:
             self.exe_generate_cmd(file_path, target_path, language_sign)

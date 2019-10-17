@@ -24,6 +24,13 @@ class BytesGenerator(base.Generator):
         return code
 
     def get_single_data_code(self, mod_name, row_data, index):
+        """
+        
+        :param mod_name: 
+        :param row_data: 
+        :param index: 
+        :return: 
+        """
         code = \
         """{VariableCreate}
 {ModName}.{ModName}Start(builder)
@@ -51,6 +58,13 @@ single_data{Index} = {ModName}.{ModName}End(builder)"""
         return code
 
     def get_list_data_code(self, mod_name, single_mod_name, list_data):
+        """
+        
+        :param mod_name: 
+        :param single_mod_name: 
+        :param list_data: 
+        :return: 
+        """
         row_count = len(list_data)
         all_assign_code = ''
         index = 0
@@ -90,7 +104,7 @@ buf = builder.Output()
             )
             return code
 
-    def generate_bytes(self, mod_name, single_mod_name, bytes_file_root_path, excel_row_list):
+    def generate_bytes(self, mod_name, single_mod_name, excel_row_list):
         """
         
         :param mod_name: 
@@ -99,8 +113,10 @@ buf = builder.Output()
         :param excel_row_list: 
         :return: 
         """
+
         list_code = self.get_list_data_code(mod_name, single_mod_name, excel_row_list)
-        #print(list_code)
+        fbs_root_path = self.get_config().get("output_bin_rootPath")
+        bytes_file_root_path = os.getcwd()+ "/" + fbs_root_path
         byte_file_path = os.path.join(bytes_file_root_path, "{}.bytes".format(mod_name))
         byte_file_path = byte_file_path.replace('\\', '/')
         code = """
@@ -108,9 +124,7 @@ buf = builder.Output()
 with open('{ByteFilePath}', 'wb') as f:
     f.write(buf)
 """.format(ListCode = list_code, ByteFilePath = byte_file_path)
-        #print(code)
         exec(code)
-        print('生成: ', byte_file_path)
 
     # Bytes 生成代码
     # ================================== Excel 数据读取 ==================================
@@ -157,7 +171,7 @@ with open('{ByteFilePath}', 'wb') as f:
         sheet_row_data_list = []
         header_length = self.get_config().get("header_length")
         if not isinstance(header_length, int):
-            print('header_length 不是数字类型')
+            print('配置中header_length的类型是%s，这不是数字类型' %type(header_length))
             print('异常退出')
             sys.exit()
         for x in range(header_length, data_row_count):
@@ -178,8 +192,7 @@ with open('{ByteFilePath}', 'wb') as f:
                 }
                 single_row_data.append(data_dict)
             sheet_row_data_list.append(single_row_data)
-        fbs_root_path = self.get_config().get("output_fbs_rootPath")
-        self.generate_bytes(mod_name, single_mod_name, fbs_root_path, sheet_row_data_list)
+        self.generate_bytes(mod_name, single_mod_name, sheet_row_data_list)
 
     def generate_excel_data(self, excel_path):
         """
@@ -199,7 +212,6 @@ with open('{ByteFilePath}', 'wb') as f:
         :return: 
         """
         excel_root_path = os.path.join(os.getcwd(), self.get_config().get("excel_rootPath"))
-        print(excel_root_path)
         for root, dirs, files in os.walk(excel_root_path):
             for file in files:
                 excel_file_path = os.path.join(root, file)
