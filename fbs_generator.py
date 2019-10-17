@@ -1,4 +1,7 @@
 # -*- coding:utf-8 -*-
+# auth:evan xu
+# date:2019-10-17
+
 import xlrd
 import sys
 import os
@@ -12,17 +15,17 @@ class FbsGenerator(base.Generator):
 
     __row_code = """
 table %s {
-        %s
-    }
+    %s
+}
 """
 
     __group_code = """
 table %s {
-        datalist:[%s];
-    }
+    datalist:[%s];
+}
 """
-
-    def clean_directory(self, target_path):
+    @classmethod
+    def clean_directory(cls, target_path):
         """
         
         :param target_path: 
@@ -39,8 +42,6 @@ table %s {
         except:
             print('旧数据清理失败，请关掉已打开的旧文件')
             sys.exit()
-
-
 
     def export_all_excel_to_fbs(self):
         """
@@ -63,7 +64,6 @@ table %s {
         # 打开excel，分别将每一个sheet导出fbs
         wb = xlrd.open_workbook(excel_path)
         sheet_count = len(wb.sheet_names())
-        sheet1 = wb.sheet_by_index(0)
         for x in range(0, sheet_count):
             sheet = wb.sheet_by_index(x)
             self.export_sheet_to_fbs(sheet)
@@ -75,16 +75,10 @@ table %s {
         :return: 
         """
         sheet_name = sheet.name
-        print(sheet_name.find("|"))
         if sheet_name.find("|") != -1:
-            print(sheet_name)
             sheet_name = sheet_name.split("|")[1]
         row_table_name = sheet_name + 'RowData'
         group_table_name = sheet_name
-        client_or_server = sheet.row(0)
-        data_type_list = sheet.row(1)
-        field_name_list = sheet.row(2)
-        field_des = sheet.row(3)
         # check if length of row equals
         header_length = self.get_config().get("header_length")
         if not isinstance(header_length, int):
@@ -97,6 +91,8 @@ table %s {
             sys.exit()
         variable_dict =  self.load_sheet2_dict(sheet)
         if not variable_dict:
+            print('无法获取sheet表单数据，请检查excel表中的%s结构' %sheet_name)
+            print('异常退出')
             sys.exit()
         #print(variable_name, data_type, data_type in __support_datatypes)
         # 组合变量定义代码字符串
@@ -109,15 +105,15 @@ table %s {
         # 组合列表代码字符串
         group_data_table_code_str = self.__group_code % (group_table_name, row_table_name)
         # 写入文件
-        fbs_root_path = self.get_config().get("excel_rootPath")
-        fbs_file_path = os.path.join(fbs_root_path, group_table_name + '.fbs')
+        fbs_root_path = self.get_config().get("output_fbs_rootPath")
+        fbs_file_path = os.path.join(os.getcwd(), fbs_root_path + "/" + group_table_name + '.fbs')
         print('生成: ', fbs_file_path)
         write_str = row_data_table_code_str + '\n' + group_data_table_code_str
         with open(fbs_file_path, 'w') as f:
             f.write(write_str)
 
-
-    def get_all_fbs_file(self, root_path):
+    @classmethod
+    def get_all_fbs_file(cls, root_path):
         """
         
         :param root_path: 
@@ -130,15 +126,20 @@ table %s {
                 file_list.append(file_path)
         return file_list
 
-
     def exe_generate_cmd(self, fbs_file, target_path, language_sign):
-
+        """
+        执行生成语句
+        :param fbs_file: 
+        :param target_path: 
+        :param language_sign: 
+        :return: 
+        """
         # flatc所在目录
         work_root = os.getcwd()
         flatc_path = os.path.join(work_root, self.get_config().get("flat_path"))
         command = '{} --{} -o {} {} --gen-onefile'.format(flatc_path, language_sign, target_path, fbs_file)
+        print(command)
         os.system(command)
-
 
     def generate_target(self, target_path, language_sign):
         """
@@ -152,7 +153,6 @@ table %s {
         for file_path in fbs_path_list:
             self.exe_generate_cmd(file_path, target_path, language_sign)
 
-
     def clean(self):
         """
         清理上次的数据
@@ -164,7 +164,7 @@ table %s {
         for lang in lang_types:
             lang_str = "generated_%s" % lang
             lang_root_path = os.path.join(work_root, lang_str)
-            self.clean_directory(lang_root_path)
+            FbsGenerator.clean_directory(lang_root_path)
 
     def run(self):
         """

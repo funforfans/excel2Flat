@@ -1,3 +1,7 @@
+# -*- coding:utf-8 -*-
+# auth:evan xu
+# date:2019-10-17
+
 import xlrd
 import sys
 import os
@@ -102,7 +106,7 @@ buf = builder.Output()
         code = """
 {ListCode}
 with open('{ByteFilePath}', 'wb') as f:
-f.write(buf)
+    f.write(buf)
 """.format(ListCode = list_code, ByteFilePath = byte_file_path)
         #print(code)
         exec(code)
@@ -174,8 +178,8 @@ f.write(buf)
                 }
                 single_row_data.append(data_dict)
             sheet_row_data_list.append(single_row_data)
-            output_fbs_rootPath = self.get_config.get("output_fbs_rootPath")
-        self.generate_bytes(mod_name, single_mod_name, output_fbs_rootPath, sheet_row_data_list)
+        fbs_root_path = self.get_config().get("output_fbs_rootPath")
+        self.generate_bytes(mod_name, single_mod_name, fbs_root_path, sheet_row_data_list)
 
     def generate_excel_data(self, excel_path):
         """
@@ -195,6 +199,7 @@ f.write(buf)
         :return: 
         """
         excel_root_path = os.path.join(os.getcwd(), self.get_config().get("excel_rootPath"))
+        print(excel_root_path)
         for root, dirs, files in os.walk(excel_root_path):
             for file in files:
                 excel_file_path = os.path.join(root, file)

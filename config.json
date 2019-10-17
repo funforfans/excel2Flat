@@ -6,7 +6,7 @@
   "_header_length": "excel文件头的长度",
   "header_length": 4,
   "_output_fbs_rootPath": "fbs文件输出路径",
-  "output_fbs_rootPath": "fbs",
+  "output_fbs_rootPath": "generated_fbs",
   "_output_bin_rootPath": "二进制文件输出路径",
   "output_bin_rootPath": "bins",
   "_flat_path":"flat工具路径",
@@ -18,6 +18,6 @@
                   "String": "string",
                   "int[]": "string"
                   },
-  "_generate_lang_type":["go", "rust", "python", "csharp"],
-  "generate_lang_type":["go", "rust", "python", "csharp"]
+  "_generate_lang_type": "生成对应的语言",
+  "generate_lang_type":["fbs", "go", "rust", "python", "csharp"]
 }
