@@ -141,7 +141,7 @@ table %s {
         # flatc所在目录
         work_root = os.getcwd()
         flatc_path = os.path.join(work_root, self.get_config().get("flat_path"))
-        if language_sign == "bins" or language_sign == "fbs":
+        if language_sign == "bins" or language_sign == "fbs" or language_sign == "exec":
             return
         print('生成 {} 代码'.format(language_sign))
         command = '{} --{} -o {} {} --gen-onefile'.format(flatc_path, language_sign, target_path, fbs_file)
@@ -178,7 +178,7 @@ table %s {
         :return: 
         """
         print('---------------- 清理旧文件 ----------------')
-        self.clean()
+        #self.clean()
         print('---------------- 生成fbs文件, 生成不同语言代码 ----------------')
         self.export_all_excel_to_fbs()
         # 本工具的根目录

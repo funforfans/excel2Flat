@@ -19,5 +19,5 @@
                   "int[]": "string"
                   },
   "_generate_lang_type": "生成对应的语言",
-  "generate_lang_type":["fbs", "go", "rust", "python", "csharp", "bins"]
+  "generate_lang_type":["go", "rust", "python", "csharp", "bins", "fbs"]
 }

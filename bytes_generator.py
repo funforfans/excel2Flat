@@ -79,8 +79,10 @@ single_data{Index} = {ModName}.{ModName}End(builder)"""
             offset_code += '\n'
             code = \
 """
-import generated_python.{SingleModName} as {SingleModName}
-import generated_python.{ModName} as {ModName}
+import sys
+sys.path.append('../generated_python')
+from generated_python import {SingleModName}
+from generated_python import {ModName}
 import flatbuffers
 
 builder = flatbuffers.Builder(1)
@@ -125,6 +127,15 @@ with open('{ByteFilePath}', 'wb') as f:
     f.write(buf)
 """.format(ListCode = list_code, ByteFilePath = byte_file_path)
         exec(code)
+        """
+        py_file_name = "generated_python/" + mod_name + "_exec.py"
+        excel_root_path = os.path.join(os.getcwd(), py_file_name)
+        print(excel_root_path)
+        pass
+        f=open(excel_root_path, 'w') # 清空文件内容再写
+        f.write(code)  # 只能写字符串
+        f.close()
+        """
 
     # Bytes 生成代码
     # ================================== Excel 数据读取 ==================================
