@@ -49,7 +49,11 @@ table %s {
         :return: 
         """
         excel_root_path = os.path.join(os.getcwd(), self.get_config().get("excel_rootPath"))
+        if not excel_root_path:
+            print("没有配置excel文件夹的路径，请手动创建一个！")
+            sys.exit()
         for root, dirs, files in os.walk(excel_root_path, topdown=True):
+            print(root, dirs, files)
             for name in files:
                 file_path = os.path.join(root, name)
                 if file_path.endswith(self.get_config().get("excel_extension")) and not name.startswith('~'):
