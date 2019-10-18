@@ -1,3 +1,4 @@
+[![Build Status](https://www.travis-ci.org/xuyiwenak/excel2Flat.svg?branch=master)](https://www.travis-ci.org/xuyiwenak/excel2Flat)
 # excel2Flat
 将 Excel 配表数据，以 flatbuffers 的形式存储，并将表结构转为 flatbuffers 代码，打包成二进制语言，提供给服务器和客户端调用。
 
