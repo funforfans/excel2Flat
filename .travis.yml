@@ -5,10 +5,9 @@ python:
   - 3.7
 
 before_install:
-  - git clone https://github.com/google/flatbuffers.git flatbuffers
-  - pwd
-  - cd ./flatbuffers
-  - pwd
+  - git clone https://github.com/google/flatbuffers.git
+  - cd flatbuffers
+  - mkdir build && cd build
   - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release .. && make -j2 && cd ..
   - cd $TRAVIS_BUILD_DIR
 
