@@ -1,9 +1,10 @@
 import fbs_generator
 import bytes_generator
-import os
+import flatbuffers
+import os, sys
+sys.path.append(os.path.dirname(os.path.realpath(sys.argv[0])))
 
 if __name__ == '__main__':
-
     config_name = "config.json"
     work_root = os.getcwd()
     config_path = os.path.join(work_root, config_name)
