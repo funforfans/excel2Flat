@@ -178,7 +178,7 @@ table %s {
         :return: 
         """
         print('---------------- 清理旧文件 ----------------')
-        #self.clean()
+        self.clean()
         print('---------------- 生成fbs文件, 生成不同语言代码 ----------------')
         self.export_all_excel_to_fbs()
         # 本工具的根目录
