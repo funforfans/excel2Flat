@@ -3,13 +3,10 @@ language:
 
 python:
   - 3.7
+os: osx
 
 before_install:
-  - git clone https://github.com/google/flatbuffers.git
-  - cd flatbuffers
-  - mkdir build && cd build
-  - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release .. && make -j2 && cd ..
-  - cd $TRAVIS_BUILD_DIR
+
 
 install:
   - pip install -r requirements.txt
@@ -17,6 +14,7 @@ install:
 script:
   - echo stop the build if there are Python syntax errors or undefined names
   - python -V
+  - pwd
   - ./flatc/flatc --python -o /home/travis/build/xuyiwenak/excel2Flat/generated_python generated_fbs/DemoTest.fbs --gen-onefile
 
 after_success:
