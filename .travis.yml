@@ -7,6 +7,10 @@ os:
   - osx
 
 before_install:
+  - git clone https://github.com/google/flatbuffers.git  /flatbuffers
+  - cd /flatbuffers
+  - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release .. && make -j2 && cd ..
+  - cd $TRAVIS_BUILD_DIR
 
 install:
   - pip install -r requirements.txt
