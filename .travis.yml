@@ -17,7 +17,7 @@ install:
 script:
   - echo stop the build if there are Python syntax errors or undefined names
   - python -V
-  - python run.py
+  - ./flatc/flatc --python -o /home/travis/build/xuyiwenak/excel2Flat/generated_python generated_fbs/DemoTest.fbs --gen-onefile
 
 after_success:
   - echo "Build successful"
