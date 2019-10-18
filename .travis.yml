@@ -7,12 +7,11 @@ python:
 before_install:
 
 install:
-  - pip install xlrd
-  - pip install flatbuffers
+  - pip install -r requirements.txt
 
 script:
   - echo stop the build if there are Python syntax errors or undefined names
-  - echo ; echo -n "excel2Flat testing on python version; python -V
+  - python -V
   - python run.py
 
 after_success:
