@@ -19,13 +19,13 @@ pip install -r requirements.txt
 # install flatc source code to binaries
 sh build_flatc.sh
 ```
-### 1. python 3.x env
+### 2. python 3.x env(need python3)
 > depend on `xlrd` and `flatbuffers`
 
 ```
 python run.py
 ```
-### 2. binary package
+### 3. binary package(bin use directly)
 > depend on  `pyinstaller`
 
 ```
