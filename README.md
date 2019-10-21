@@ -12,10 +12,25 @@
 - [x] 将 excel 表数据按 flatbuffers 的结构，将每一个表打包成二进制文件。
 
 
-## 如何使用
+## how to use
+### 1. install dependence
 ```
-cd Excel2Flat
-# 这个工具用到的Python是 python3.7.x
+pip install -r requirements.txt
+# install flatc source code to binaries
+sh build_flatc.sh
+```
+### 1. python 3.x env
+> depend on `xlrd` and `flatbuffers`
+
+```
 python run.py
 ```
-> 工具用到了`xlrd`和`flatbuffers`，如果运行报错，提示没有安装这两个模块，需要先使用pip3安装
+### 2. binary package
+> depend on  `pyinstaller`
+
+```
+sh build_bin.sh
+sh exec_data_py.sh
+```
+
+
