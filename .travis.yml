@@ -5,13 +5,8 @@ python:
   - 3.7
 
 before_install:
-  - git clone https://github.com/google/flatbuffers.git
-  - cd flatbuffers
-  - cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
-  - make -j2
-  - cp flatc ../flatc/
-  - cd $TRAVIS_BUILD_DIR
-
+  - sh build_flatc.sh
+  
 install:
   - pip install -r requirements.txt
 
