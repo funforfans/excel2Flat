@@ -10,10 +10,11 @@ def load_config(path):
     if not os.path.exists(path):
         print(path, "<-----------配置文件加载失败！请确认配置路径!")
         sys.exit()
-    with open("./config.json", "r") as f:
+    with open(path, "r") as f:
         try:
             config = json.loads(f.read())
         except:
             print(path, "      <-----------配置加载失败！请确认配置内容!")
             sys.exit()
+    print(path, "加载成功!")
     return config

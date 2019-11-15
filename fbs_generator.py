@@ -48,7 +48,8 @@ table %s {
         excel到fbs
         :return: 
         """
-        excel_root_path = os.path.join(os.getcwd(), self.get_config().get("excel_rootPath"))
+        PWD = os.path.dirname(os.path.abspath(__file__))
+        excel_root_path = os.path.join(PWD, self.get_config().get("excel_rootPath"))
         if not excel_root_path:
             print("没有配置excel文件夹的路径，请手动创建一个！")
             sys.exit()
@@ -110,7 +111,7 @@ table %s {
         group_data_table_code_str = self.__group_code % (group_table_name, row_table_name)
         # 写入文件
         fbs_root_path = self.get_config().get("output_fbs_rootPath")
-        fbs_file_path = os.path.join(os.getcwd(), fbs_root_path + "/" + group_table_name + '.fbs')
+        fbs_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), fbs_root_path + "/" + group_table_name + '.fbs')
         print('生成: ', fbs_file_path)
         write_str = row_data_table_code_str + '\n' + group_data_table_code_str
         with open(fbs_file_path, 'w') as f:
@@ -139,7 +140,7 @@ table %s {
         :return: 
         """
         # flatc所在目录
-        work_root = os.getcwd()
+        work_root = os.path.dirname(os.path.abspath(__file__))
         flatc_path = os.path.join(work_root, self.get_config().get("flat_path"))
         if language_sign == "bins" or language_sign == "fbs" or language_sign == "exec":
             return
@@ -165,7 +166,7 @@ table %s {
         :return: 
         """
         # 本工具的根目录
-        work_root = os.getcwd()
+        work_root = os.path.dirname(os.path.abspath(__file__))
         lang_types = self.get_config().get("generate_lang_type")
         for lang in lang_types:
             lang_str = "generated_%s" % lang
@@ -182,7 +183,7 @@ table %s {
         print('---------------- 生成fbs文件, 生成不同语言代码 ----------------')
         self.export_all_excel_to_fbs()
         # 本工具的根目录
-        work_root = os.getcwd()
+        work_root = os.path.dirname(os.path.abspath(__file__))
         lang_types = self.get_config().get("generate_lang_type")
         for lang in lang_types:
             lang_str = "generated_%s" %lang

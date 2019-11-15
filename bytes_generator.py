@@ -115,10 +115,10 @@ buf = builder.Output()
         :param excel_row_list: 
         :return: 
         """
-
+        os.path.realpath(sys.argv[0])
         list_code = self.get_list_data_code(mod_name, single_mod_name, excel_row_list)
         fbs_root_path = self.get_config().get("output_bin_rootPath")
-        bytes_file_root_path = os.getcwd()+ "/" + fbs_root_path
+        bytes_file_root_path = os.path.dirname(os.path.abspath(__file__)) + "/" + fbs_root_path
         byte_file_path = os.path.join(bytes_file_root_path, "{}.bytes".format(mod_name))
         byte_file_path = byte_file_path.replace('\\', '/')
         code = """
@@ -129,7 +129,7 @@ with open('{ByteFilePath}', 'wb') as f:
         exec(code)
         """
         py_file_name = "generated_python/" + mod_name + "_exec.py"
-        excel_root_path = os.path.join(os.getcwd(), py_file_name)
+        excel_root_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), py_file_name)
         print(excel_root_path)
         pass
         f=open(excel_root_path, 'w') # 清空文件内容再写
@@ -222,7 +222,7 @@ with open('{ByteFilePath}', 'wb') as f:
         
         :return: 
         """
-        excel_root_path = os.path.join(os.getcwd(), self.get_config().get("excel_rootPath"))
+        excel_root_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.get_config().get("excel_rootPath"))
         for root, dirs, files in os.walk(excel_root_path):
             for file in files:
                 excel_file_path = os.path.join(root, file)
