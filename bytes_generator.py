@@ -131,7 +131,6 @@ with open('{ByteFilePath}', 'wb') as f:
         py_file_name = "generated_python/" + mod_name + "_exec.py"
         excel_root_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), py_file_name)
         print(excel_root_path)
-        pass
         f=open(excel_root_path, 'w') # 清空文件内容再写
         f.write(code)  # 只能写字符串
         f.close()
