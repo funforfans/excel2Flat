@@ -12,17 +12,23 @@ class FbsGenerator(base.Generator):
     """
     生成fbs类
     """
+    __name_space_tpl = """
+namespace %s;
+"""
 
-    __row_code = """
+    __row_code_tpl = """
 table %s {
     %s
 }
 """
 
-    __group_code = """
+    __group_tpl = """
 table %s {
     datalist:[%s];
 }
+"""
+    __root_type_tpl = """
+root_type %s;
 """
     @classmethod
     def clean_directory(cls, target_path):
@@ -106,14 +112,19 @@ table %s {
             data_type = variable_dict[variable]
             variables_str += '    %s:%s;\n' % (variable, data_type)
         variables_str = variables_str.strip(' \t\n\t')
-        row_data_table_code_str = self.__row_code % (row_table_name, variables_str)
-        # 组合列表代码字符串
-        group_data_table_code_str = self.__group_code % (group_table_name, row_table_name)
+        # 拼接fbs文本结构
+        name_space_str = self.__name_space_tpl % sheet_name
+        row_data_table_code_str = self.__row_code_tpl % (row_table_name, variables_str)
+        group_data_table_code_str = self.__group_tpl % (group_table_name, row_table_name)
+        root_type_str = self.__root_type_tpl % group_table_name
         # 写入文件
         fbs_root_path = self.get_config().get("output_fbs_rootPath")
         fbs_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), fbs_root_path + "/" + group_table_name + '.fbs')
         print('生成: ', fbs_file_path)
-        write_str = row_data_table_code_str + '\n' + group_data_table_code_str
+        write_str = name_space_str \
+                    + row_data_table_code_str\
+                    + group_data_table_code_str\
+                    + root_type_str
         with open(fbs_file_path, 'w') as f:
             f.write(write_str)
 
