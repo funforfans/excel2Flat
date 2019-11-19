@@ -13,7 +13,8 @@ install:
 script:
   - echo stop the build if there are Python syntax errors or undefined names
   - python -V
-  - python run.py
+  - python run.py -t yaml -p config.yml
+  - python run.py -t json -p config.json
 
 
 after_success:
