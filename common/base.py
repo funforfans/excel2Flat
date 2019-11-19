@@ -6,19 +6,20 @@ class Generator(object):
     """
     生成器的基类
     """
-    __config={}
-    def __init__(self, path):
+    _config=None
+
+    def __init__(self, config_dict):
         """
         初始化
         """
-        self.__config = loader.load_config(path)
+        self._config = config_dict
 
     def get_config(self):
         """
         返回配置
         :return: 
         """
-        return self.__config
+        return self._config
 
     def run(self):
         """
@@ -46,8 +47,8 @@ class Generator(object):
                 print('异常退出')
                 return
             # 如果是可替换的数据类型
-            replace_dict = self.__config.get("replace_dict")
-            support_datatypes = self.__config.get("support_datatypes")
+            replace_dict = self._config.get("replace_dict")
+            support_datatypes = self._config.get("support_datatypes")
             if replace_dict.get(data_type):
                 data_type = replace_dict[data_type]
             if not data_type in support_datatypes:

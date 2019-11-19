@@ -1,0 +1,31 @@
+
+# excel文件的后缀
+excel_extension: "xlsx"
+
+# excel配置文件存放路径
+excel_rootPath: "excel"
+
+# excel文件头的长度
+header_length: 4
+
+# fbs文件输出目录
+output_fbs_rootPath: "generated_fbs"
+
+# 二进制文件输出路径
+output_bin_rootPath: "generated_bins"
+
+# flat工具路径
+flat_path: "flatc/flatc"
+
+# excel配置支持的基本数据类型
+support_datatypes: ["string", "int", "float", "byte", "bool"]
+
+# 对应不标准数据类型写法的兼容配置映射
+
+replace_dict:
+  boolean: "bool"
+  String: "string"
+  int[]: "string"
+
+# 生成对应的语言
+generate_lang_type: ["go", "rust", "python", "csharp", "bins", "fbs"]
