@@ -1,5 +1,5 @@
  [![License](https://img.shields.io/:license-apache-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
- [![Build Status](https://www.travis-ci.org/funforfans/excel2Flat.svg?branch=master)](https://www.travis-ci.org/funforfans/excel2Flat)
+ [![Build Status](https://img.shields.io/travis/funforfans/excel2Flat/master.svg?tyle=for-the-badge&logo=travis](https://www.travis-ci.org/funforfans/excel2Flat)
 # excel2Flat
 将 Excel 配表数据，以 flatbuffers 的形式存储，并将表结构转为 flatbuffers 代码，打包成二进制语言，提供给服务器和客户端调用。
 
