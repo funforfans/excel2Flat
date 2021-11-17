@@ -1,4 +1,4 @@
 flatbuffers==1.11
 xlrd==1.2.0
-pyinstaller==3.5
+pyinstaller==3.6
 pyyaml==5.4
